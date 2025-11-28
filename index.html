@@ -53,6 +53,47 @@
             locations.forEach(loc => {
                 L.marker([loc.lat, loc.lng]).addTo(map).bindPopup(`<b>${loc.name}</b>`)
             })
+
+            /* *******************************************************
+                                    Work with GEO JSON
+               ******************************************************* */
+
+            const geoData = {
+                type: 'Feature',
+                "geometry": {
+                    type: "Polygon",
+                    coordinates: [
+                        [
+                            [77.21, 28.65],
+                            [77.25, 28.65],
+                            [77.25, 28.62],
+                            [77.21, 28.62],
+                            [77.21, 28.65]
+                        ]
+                    ]
+                },
+            };
+
+            L.geoJSON(geoData, { style: { color: "red", weight: 2 } }).addTo(map)
+
+            map.on('click', function (e) {
+                L.marker(e.latlng).addTo(map);
+                console.log('Clicked At:', e.latlng);
+            })
+
+            const customIcon = L.icon({
+                iconUrl: `images/icon.png`,
+                iconSize: [40, 40],
+            })
+
+            L.marker(
+                [28.90, 77.21],
+                { icon: customIcon }
+            ).addTo(map);
+
+
+
+
         </script>
     </body>
 
